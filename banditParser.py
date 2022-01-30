@@ -30,16 +30,16 @@ def calculateIssueHash(i):
 
 def scanResult(issueFingerprint, i, issueSeverity):
 	REDC = '\033[31m'
-	YELC = '\033[33m'
+	ORAC = '\033[37m'
 	BLUC = '\033[36m'
 	ENDC = '\033[0m'
 
 	if(issueSeverity=="HIGH"):
 		COLOR = REDC
 	elif(issueSeverity=="MEDIUM"):
-		COLOR = YELC
-	else:
 		COLOR = BLUC
+	else:
+		COLOR = ORAC
 
 	output = "--------------------------------------------------\n"
 	output += COLOR + "Issue Fingerprint: " + issueFingerprint + "\n"
@@ -105,7 +105,7 @@ def main(argv):
 		if(issueFingerprint not in falsePositiveSignatures):
 			findings.append(i)
 
-	issue_weight = dict(HIGH=0, MEDIUM=1, LOW=2)
+	issue_weight = dict(HIGH=3, MEDIUM=1, LOW=1)
 	findings.sort(key=lambda x: issue_weight[x["issue_confidence"]])
 	findings.sort(key=lambda x: issue_weight[x["issue_severity"]])
 
